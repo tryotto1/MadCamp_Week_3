@@ -10,8 +10,7 @@ const router = express.Router();
 router.get('/', function(req, res){
   console.log(path.join(__dirname, './set_html/video_record.html'));
 
-    fs.readFile(path.join(__dirname, './set_html/video_record.html'), function(error, data){    
-        // fs.readFile('./index.html', function(error, data){    
+    fs.readFile(path.join(__dirname, './set_html/video_record.html'), function(error, data){            
         if(error){
             console.log(error);
         }else{
@@ -34,24 +33,42 @@ router.post('/add_weekly', (req, res)=>{
         });
       }
      
-    if (req.body.my_week_time === "") {
+    if (req.body.current_time === 0) {
       return res.status(400).json({
-        error: "EMPTY WEEKLY UPDATE",
+        error: "EMPTY CURRENT TIME",
         code: 2
       });   
     }
 
-    // 저장해준다
-    let weekTime = new WeekTime({
-        my_email: req.body.my_email,
-        my_week_time: req.body.my_week_time
-    });
-
-    // 주간 공부 시간을 업데이트 해준다
-    userInfo.save(err => {
-        if (err) throw err;
-        return res.json({ success: true });
-      });    
+    let given_time = req.body.current_time;
+    WeekTime.findOne({"my_email": req.body.my_email}, function(err, weekTime){
+      if(err)
+           return res.status(500).json({error: 'Internal Error'});      
+      // 존재하지 않는 이메일 - 새로 만들어줘야 한다
+      if(weekTime == null){ 
+          // 새 document를 저장해주기 위해 임시 document 객체를 받는다
+          var tmp_weekTime = new WeekTime({
+            my_email: req.body.my_email,
+            my_today_time : req.body.current_time,
+            my_week_time : req.body.current_time
+          });
+          // 저장해준다
+          tmp_weekTime.save(err => {
+            if (err) throw err;
+            return res.json({ success: true });                    
+          });      
+      }
+      else{
+        WeekTime.updateMany({"my_email" : req.body.my_email}, {$inc:{"my_today_time":given_time, "my_week_time":given_time}}, function(err, time){
+          if(err) {
+            return res.json("can't update time");
+          }
+          else{      
+            return res.json("time updated");
+          }
+        });
+      }
+   });
 });
 
 module.exports = router;
