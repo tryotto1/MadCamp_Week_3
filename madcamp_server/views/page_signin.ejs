@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- local에서 로딩한 bootstrap -->
+        <!-- <link rel="stylesheet" href="css/bootstrap.min.css" /> -->
+        <!-- <link rel="stylesheet" href="../public/css/bootstrap.css" />
+        <script src="js/bootstrap.bundle.min.js"></script> -->
+
+        <!-- 온라인에서 로딩한 bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <!-- 온라인에서 로딩한 bootstrap. jquery 내용이 담김 -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+        <!-- 로그인/회원가입을 위해 온라인에서 가져온 소스-->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+        <!-- 내가 추가적으로 설정한 css 파일 -->
+        <!-- <link rel="stylesheet" href="css/index.css" /> -->
+        <link rel="stylesheet" href="../public/css/index.css" />
+
+        <!-- 개별 스타일 지정해주기 -->
+        <style>
+            .footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background-color:black;
+                color: white;
+                text-align: center;
+            }
+
+            body {
+                font-family: "Lato", sans-serif;
+            }
+
+
+
+            .main-head{
+                height: 150px;
+                background: #FFF;
+            
+            }
+
+            .sidenav {
+                height: 100%;
+                background-color: #000;
+                overflow-x: hidden;
+                padding-top: 20px;
+            }
+
+
+            .main {
+                padding: 0px 10px;
+            }
+
+            @media screen and (max-height: 450px) {
+                .sidenav {padding-top: 15px;}
+            }
+
+            @media screen and (max-width: 450px) {
+                .login-form{
+                    margin-top: 10%;
+                }
+
+                .register-form{
+                    margin-top: 10%;
+                }
+            }
+
+            @media screen and (min-width: 768px){
+                .main{
+                    margin-left: 40%; 
+                }
+
+                .sidenav{
+                    width: 40%;
+                    position: fixed;
+                    z-index: 1;
+                    top: 0;
+                    left: 0;
+                }
+
+                .login-form{
+                    margin-top: 80%;
+                }
+
+                .register-form{
+                    margin-top: 20%;
+                }
+            }
+
+
+            .login-main-text{
+                margin-top: 20%;
+                padding: 60px;
+                color: #fff;
+            }
+
+            .login-main-text h2{
+                font-weight: 300;
+            }
+
+            .btn-black{
+                background-color: #000 !important;
+                color: #fff;
+            }
+            </style>
+
+        <title>회원가입</title>
+    </head>
+    <body>
+        <!-- 상단 네비게이션 바 부분-->        
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#"><h4>코윗미</h4></a>
+                      
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">메인<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">랭킹</a>
+                </li>                
+              </ul>
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">공부 시작하기</a>
+                  </li>                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    접속하기
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">로그인</a>
+                    <a class="dropdown-item" href="#">회원가입</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+              </ul>
+            </div>
+        </nav>
+
+        <!-- 로그인/회원가입 부분 -->
+        <div class="sidenav">
+            <div class="login-main-text">
+               <h2>Application<br> Signin Page</h2>
+               <p>Login or register from here to access.</p>
+            </div>
+         </div>
+         <div class="main">
+            <div class="col-md-6 col-sm-12">
+               <div class="login-form">
+                  <form action="/api/login_signin/signin" method="POST">
+                     <div class="form-group">
+                        <label>User Name</label>
+                        <input type="text" class="form-control" placeholder="User Name" name="my_email">
+                     </div>
+                     <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" placeholder="Password" name="my_pwd">
+                     </div>
+                     <div class="form-group">
+                        <label>Goal</label>
+                        <input type="text" class="form-control" placeholder="Your Goal" name="my_goal">
+                     </div>
+                     <button type="submit" class="btn btn-black">Signin</button>                     
+                  </form>
+               </div>
+            </div>
+         </div>
+
+        <!-- 하단 footer 부분 -->
+        <div class = "footer">
+            <div class="container">
+                <br>
+                <div class="row">
+                    <div class="col-sm-4" style="text-align: center;">                        
+                    </div>
+                    <div class="col-sm-4" style="text-align: center;">
+                        <h5>코윗미</h5>
+                    </div>
+                    <div class="col-sm-4" style="text-align: right;">
+                        Copyright 이현호, 김상윤
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

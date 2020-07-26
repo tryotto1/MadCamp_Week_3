@@ -1,0 +1,15 @@
+.jumbotron{
+    background-image: url('../images/code_cover.jpg');
+    background-size: cover;
+    text-shadow: black 0.2em 0.2em 0.2em;
+    color: white;
+}            
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color :black;
+    color: white;
+    text-align: center;
+}

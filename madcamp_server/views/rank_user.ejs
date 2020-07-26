@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- local에서 로딩한 bootstrap -->
+        <!-- <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <script src="js/bootstrap.bundle.min.js"></script> -->
+
+        <!-- 온라인에서 로딩한 bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <!-- 온라인에서 로딩한 bootstrap. jquery 내용이 담김 -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+        <!-- 내가 추가적으로 설정한 css 파일 -->
+        <link rel="stylesheet" href="css/index.css" />
+
+        <!-- 로그인/회원가입을 위해 온라인에서 가져온 소스-->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">     
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>   
+
+        <!-- 개별 스타일 지정해주기 -->
+        <style>
+            .footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background-color:black;
+                color: white;
+                text-align: center;
+            }
+            </style>
+        <title> 랭킹 </title>
+    </head>
+    <body>
+        <!-- 상단 네비게이션 바 부분-->        
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#"><h4>코윗미</h4></a>
+                      
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">메인<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">랭킹</a>
+                </li>                
+              </ul>
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">공부 시작하기</a>
+                  </li>                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    접속하기
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">로그인</a>
+                    <a class="dropdown-item" href="#">회원가입</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+              </ul>
+            </div>
+        </nav>
+
+        <div class="container">
+            <p>
+                <%= value %>
+            </p>
+        </div>
+     
+        <!-- 하단 footer 부분 -->
+        <div class = "footer">
+            <div class="container">
+                <br>
+                <div class="row">
+                    <div class="col-sm-4" style="text-align: center;">                        
+                    </div>
+                    <div class="col-sm-4" style="text-align: center;">
+                        <h5>코윗미</h5>
+                    </div>
+                    <div class="col-sm-4" style="text-align: right;">
+                        Copyright 이현호, 김상윤
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
