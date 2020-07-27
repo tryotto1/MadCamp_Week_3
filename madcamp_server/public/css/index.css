@@ -1,7 +1,6 @@
 .jumbotron{
-    background-image: url('../images/code_cover.jpg');
+    background-image: url('https://c.pxhere.com/photos/5a/42/blogging_business_coding_computer_data_desk_display_electronics-916562.jpg!d');
     background-size: cover;
-    text-shadow: black 0.2em 0.2em 0.2em;
     color: white;
 }            
 .footer{
@@ -15,4 +14,15 @@
 }.navbar{
     background-color: rgb(22, 15, 15);
     color: white;
+}
+
+/*
+=======================
+Custom  Bar
+=======================
+*/
+#bottom-bar > a{
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
 }
