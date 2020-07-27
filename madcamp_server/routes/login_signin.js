@@ -12,6 +12,11 @@ router.use(cookieParser())
 
 // 로그인 홈페이지를 열어준다 - ejs 버전
 router.get('/page_login', function(req, res, next){
+  // 로그인 되어있을 경우, 다시 메인 화면으로 돌아간다
+  if(req.cookies.user!=null){
+    res.redirect('../../')
+  }  
+
   res.render('page_login', { 
 		title: 'Express',
 		length : 5});
@@ -19,9 +24,20 @@ router.get('/page_login', function(req, res, next){
 
 // 회원가입 홈페이지를 열어준다 - ejs 버전
 router.get('/page_signin', function(req, res, next){
+  // 로그인 되어있을 경우, 다시 메인 화면으로 돌아간다
+  if(req.cookies.user!=null){
+    res.redirect('../../')
+  }
+    
   res.render('page_signin', { 
 		title: 'Express',
 		length : 5});
+})
+
+// 로그 아웃 기능
+router.get('/logout', (req, res)=>{
+  res.clearCookie("user")
+  res.redirect('../../../')
 })
 
 /* DB에 접근해야 하는 호출들 */

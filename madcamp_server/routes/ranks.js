@@ -27,13 +27,11 @@ const { request } = require('http');
 
 // 친구 추가 기능
 router.post('/add_friend', (req, res)=>{
-    if (req.body.my_email === "") {
-        return res.status(400).json({
-          error: "EMPTY EMAIL",
-          code: 2
-        });
-      }
-     
+  // 로그인 안 되어있을 경우, 다시 메인 화면으로 돌아간다
+  if(req.cookies.user==null){
+    res.redirect('../../')
+  }  
+
     if (req.body.friend_email === "") {
       return res.status(400).json({
         error: "EMPTY FRIEND EMAIL",
@@ -52,20 +50,20 @@ router.post('/add_friend', (req, res)=>{
 
           // 새 document를 저장해주기 위해 임시 document 객체를 받는다
           var tmp_friendInfo = new FriendInfo({
-            my_email: req.body.my_email,
+            my_email: req.cookies.user,
             friend_email: req.body.friend_email        
           });
 
           // 저장해준다
           tmp_friendInfo.save(err => {
             if (err) throw err;
-            return res.render('rank_user');            
+            return res.redirect('../../');            
           });          
       }
       // 존재하는 이메일/PW임 - 중복됨
       else{
         console.log("여기다2 - 저장 안할게");
-        return res.render('rank_user');            
+        return res.redirect('../../');          
         // return null;
       }
    });
@@ -75,6 +73,11 @@ router.post('/add_friend', (req, res)=>{
 
 // 모든 친구들 기록 가져오기 기능 + 모든 사용자 가져오기 기능
 router.get('/fetch_friends', (req, res)=>{  
+  // 로그인 안 되어있을 경우, 다시 메인 화면으로 돌아간다
+  if(req.cookies.user==null){
+    res.redirect('../../')
+  }
+
   // 순서대로 진행되어야 - async & await 기법 사용
   var tmpFriendArray =[]
   var tmpTimeArray =[]
@@ -155,11 +158,6 @@ router.get('/fetch_friends', (req, res)=>{
             })
           }
         }).sort({"my_week_time":-1})
-
-        // return res.render('rank_user_friend', {
-        //   dummy : 3,
-        //   friend_rank : tmpTimeArray
-        // })
       }) 
     })
   }
