@@ -8,6 +8,7 @@ const router = express.Router();
 
 // 홈페이지를 열어준다 - ejs 버전
 router.get('/', function(req, res, next){
+  console.log("되나? : " + req.cookies.user)
   res.render('video_record');
 })
 
@@ -29,7 +30,7 @@ router.post('/add_weekly', (req, res)=>{
         error: "EMPTY CURRENT TIME",
         code: 2
       });   
-    }
+    }  
 
     let given_time = req.body.current_time;
     WeekTime.findOne({"my_email": req.body.my_email}, function(err, weekTime){

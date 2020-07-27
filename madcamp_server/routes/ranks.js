@@ -1,13 +1,16 @@
 // index.html을 가져오기 위함
+var http = require('http');
 var fs = require('fs');
 var path = require('path');
 
 // 라우터를 연결해주기 위함
 var express = require('express');
+var cookie = require('cookie');
 const router = express.Router();
 
 // 홈페이지를 열어준다 - ejs 버전
-router.get('/', function(req, res, next){
+router.get('/', function(req, res, next){  
+  console.log("쿠키 되나요?" + req.cookies.user)
   res.render('rank_user', { 
 		title: 'Express',
     length : 5,
@@ -16,11 +19,11 @@ router.get('/', function(req, res, next){
 })
 
 /* DB에 접근해야 하는 호출들 */
-var UserInfo = require('../models/users');
 var FriendInfo = require('../models/friend');
 var WeekTime = require('../models/week_time');
 var mongoose = require('mongoose');
 const { resolve } = require('path');
+const { request } = require('http');
 
 // 친구 추가 기능
 router.post('/add_friend', (req, res)=>{
@@ -38,8 +41,8 @@ router.post('/add_friend', (req, res)=>{
       });     
     }
 
-
-    FriendInfo.findOne({"my_email": req.body.my_email, "friend_email": req.body.friend_email}, function(err, friendInfo){
+    // FriendInfo.findOne({"my_email": req.body.my_email, "friend_email": req.body.friend_email}, function(err, friendInfo){
+      FriendInfo.findOne({"my_email": req.cookies.user, "friend_email": req.body.friend_email}, function(err, friendInfo){
       if(err)
            return res.status(500).json({error: 'Internal Error'});
       
@@ -71,14 +74,7 @@ router.post('/add_friend', (req, res)=>{
 });
 
 // 모든 친구들 기록 가져오기 기능 + 모든 사용자 가져오기 기능
-router.post('/fetch_friends', (req, res)=>{
-  if (req.body.my_email === "") {
-      return res.status(400).json({
-        error: "EMPTY EMAIL",
-        code: 2
-      });
-    }
-  
+router.get('/fetch_friends', (req, res)=>{  
   // 순서대로 진행되어야 - async & await 기법 사용
   var tmpFriendArray =[]
   var tmpTimeArray =[]
@@ -86,30 +82,33 @@ router.post('/fetch_friends', (req, res)=>{
     await get_friend_phone();
     await get_friend_time();    
     await give_friend();
-  }
-  
+  } 
+
   // await 함수 - 1
   function get_friend_phone(){
+    console.log('step1');
     return new Promise(function(resolve, reject){
       setTimeout(function(){
-        FriendInfo.find({"my_email":req.body.my_email}, function(err,friendInfo){
+        FriendInfo.find({"my_email":req.cookies.user}, function(err,friendInfo){
+          // FriendInfo.find({"my_email":tmp_my_email}, function(err,friendInfo){
           if(err){
             return res.json({ failure : failed })    
           }
           else{
             for(var i=0;i<friendInfo.length;i++){
-              console.log("내 이메일 : " + req.body.my_email + "친구 이메일 : " + friendInfo[i].friend_email);
+              console.log("내 이메일 : " + req.cookies.user + "친구 이메일 : " + friendInfo[i].friend_email);
               tmpFriendArray.push(friendInfo[i].friend_email);            
             }  
             resolve();
           }    
         })         
-      }, 200);
+      });
     });
   } 
   
   // await 함수 - 2
   function get_friend_time(){    
+    console.log('step2');
     return new Promise(function(resolve, reject){
       console.log("tmpFriendArray 크기 : " + tmpFriendArray.length); 
       var cnt=0;     
@@ -134,14 +133,17 @@ router.post('/fetch_friends', (req, res)=>{
             }          
           })
         }
-      }, 200);
+      });
     });
   }
 
   // await 함수 - 3
   function give_friend(){    
+    console.log('step3');
     return new Promise(function(resolve, reject){      
       console.log("tmpTimeArray 크기 : " + tmpTimeArray.length);      
+      tmpTimeArray.sort((a,b) => a.my_week_time - b.my_week_time);
+      tmpTimeArray.reverse();
       setTimeout(function(){        
         WeekTime.find({}, function(err, weekTime){
           if(err){
@@ -152,7 +154,7 @@ router.post('/fetch_friends', (req, res)=>{
               friend_rank : tmpTimeArray
             })
           }
-        })
+        }).sort({"my_week_time":-1})
 
         // return res.render('rank_user_friend', {
         //   dummy : 3,

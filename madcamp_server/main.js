@@ -20,6 +20,10 @@ mongoose.connect('mongodb://localhost/test');   // test 맞나?
 // ejs와 bootstrap을 연결하기 위함 - 코드 순서가 중요! 반드시 use의 맨 앞부분에 이런 설정을 해주자
 app.use(express.static(__dirname + '/public'));
 
+// cookie parser를 사용하기 위함
+var cookieParser = require('cookie-parser');
+app.use(cookieParser())
+
 // 들어오는 신호를 잘 처리해주기 위한 설정
 app.use(bodyParser.urlencoded({
     extended: true
