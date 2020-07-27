@@ -46,6 +46,11 @@
             .media-body{
                 padding-top: 10;   
             }
+            #bottom-bar > a{
+            color: white;
+            background-color: transparent;
+            text-decoration: none;
+            }
             </style>
         <title> 랭킹 </title>
     </head>
@@ -95,16 +100,16 @@
                             </h3>
                         </div>
                         <div class="card-body">
-                            <div class="media">                                
-                                <a href="#">
-                                    <img class="media-object" src="https://media.vlpt.us/images/ellyyyy/post/64ee1fd5-510b-45b7-a504-18bdac128936/%EB%AD%94%EA%B0%80%20%EC%95%88%20%ED%92%80%EB%A6%AC%EB%8A%94%20%EC%A7%A4.jpg" alt="" width="150" height="150">
-                                </a>                                
+                            <div class="media">                                                   
                                 <div class="media-body">
-                                    <h4 class="media-heading">
-                                        <br>김상윤                                        
-                                    </h4>
+                                    <br><br>내 이메일
+                                    <h2 class="media-heading">
+                                        <%= my_Time.my_email %>                                                                                
+                                    </h2>
                                     <br>
-                                    삽질 그만좀 하고싶다
+                                    주간 몰입 시간&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<%= my_Time.my_week_time %> 분                                            
+                                    <br>
+                                    오늘 몰입 시간&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<%= my_Time.my_today_time %> 분                                             
                                 </div>
                             </div>
 
@@ -177,16 +182,18 @@
                             </h3>
                         </div>
                         <div class="card-body">
-                            <div class="media">                                
-                                <a href="#">
-                                    <img class="media-object" src="https://images.folin.co/20200217/15819230967771c963bc854c309ac5e13e37e59117.jpeg" alt="" width="150" height="150">
-                                </a>                                
+                            <div class="media">                                                                
                                 <div class="media-body">
-                                    <h4 class="media-heading">
-                                        <br>장병규 의장님                                        
+                                    <br><br>
+                                    주간 최고 몰입러 
+                                    <h2 class="media-heading">                                        
+                                        <%= all_rank[0].my_email %>
+                                        <br>
                                     </h4>
                                     <br>
-                                    주간 100시간 몰입 신화
+                                    주간 몰입 시간&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<%= all_rank[0].my_week_time %> 분
+                                    <br>
+                                    오늘 몰입 시간&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<%= all_rank[0].my_today_time %> 분
                                 </div>
                             </div>
 
@@ -241,8 +248,8 @@
                     <div class="col-sm-4" style="text-align: center;">
                         <h5>Code With Me</h5>
                     </div>
-                    <div class="col-sm-4" style="text-align: right;">
-                        Copyright 이현호, 김상윤
+                    <div class="col-sm-4" id="bottom-bar" style="text-align: right;">
+                        Copyright &nbsp;&nbsp;&nbsp;<a href="https://github.com/dot0ris">@이현호</a>, <a href="https://github.com/tryotto1">@김상윤</a>
                     </div>
                 </div>
             </div>

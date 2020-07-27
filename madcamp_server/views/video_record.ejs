@@ -35,6 +35,11 @@
                 color: white;
                 text-align: center;
             }
+            #bottom-bar > a{
+                color: white;
+                background-color: transparent;
+                text-decoration: none;
+            }
             </style>
 
         <title>웹 캠 시작</title>
@@ -77,6 +82,7 @@
             <button type="button" onclick="init()">시작</button>
             <div id="webcam-container"></div>
             <div id="label-container"></div>
+            <button type="button" onclick="submit_time()">제출</button>            
             <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
             <script type="text/javascript">
@@ -122,7 +128,7 @@
             
                 async function loop() {
                     webcam.update(); // update the webcam frame
-                    await predict();
+                    await predict();                    
                     window.requestAnimationFrame(loop);
                 }
             
@@ -141,7 +147,7 @@
 
                         var format_t = new Date(total_studied - 32400000);
 
-                        labelContainer.childNodes[0].innerHTML = "공부 잘 하고 있네  H:" + cur_t.getHours() + "M: "+cur_t.getMinutes() + "S:" + cur_t.getSeconds();
+                        labelContainer.childNodes[0].innerHTML = "공부 잘 하고 있네  H:" + cur_t.getHours() + "  M: "+cur_t.getMinutes() + "  S:" + cur_t.getSeconds();
                         // labelContainer.childNodes[1].innerHTML = "누적 공부시간 : " + total_studied.toString();
                         labelContainer.childNodes[1].innerHTML = "누적 공부시간 : " + format_t.getHours() + "시간  " + format_t.getMinutes() + "분  " + format_t.getSeconds() + "초";
                     }else if(prediction[1].className == "playing" && 0.9 < prediction[0].probability.toFixed(2)){
@@ -150,19 +156,25 @@
                         labelContainer.childNodes[0].innerHTML = "뭐하는지 모르겠네 우리 아들? ^^ CCTV 돌려본다?? ㅎㅎ H: "  + cur_t.getHours() + "시간  "+cur_t.getMinutes() + "분  " + cur_t.getSeconds() + "초";
                     }
                 }
-            </script>
+                
+                async function submit_time(){
+                    console.log("되냐?????? Tlqkf")
+                    const url = "http://127.0.0.1:80/api/videos/add_weekly"
+                    const data= {my_email:req.cookies.user, current_time:(total_studied-32400000)};
+                    const response = await fetch(url, {
+                        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                        headers: {
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data) // body data type must match "Content-Type" header
+                    });
+                    console.log("되냐?????? 자고싶다")
+                    return response.json();
+                }
+            </script>            
             <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         </div>
 
-        <div class="container" id="accumulated_time">
-            <button type="button" onclick="submit()">제출</button>
-            <script type="text/javascript">
-                async function submit() {
-
-                }
-            </script>
-        </div>
-        
         <!-- 하단 footer 부분 -->
         <div class = "footer">
             <div class="container">
@@ -173,8 +185,8 @@
                     <div class="col-sm-4" style="text-align: center;">
                         <h5>Code With Me</h5>
                     </div>
-                    <div class="col-sm-4" style="text-align: right;">
-                        Copyright 이현호, 김상윤
+                    <div class="col-sm-4" id="bottom-bar" style="text-align: right;">
+                        Copyright &nbsp;&nbsp;&nbsp;<a href="https://github.com/dot0ris">@이현호</a>, <a href="https://github.com/tryotto1">@김상윤</a>
                     </div>
                 </div>
             </div>

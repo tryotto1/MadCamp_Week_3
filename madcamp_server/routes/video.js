@@ -12,7 +12,7 @@ router.get('/', function(req, res, next){
   if(req.cookies.user==null){
     res.redirect('../../')
   }
-  
+
   console.log("되나? : " + req.cookies.user)
   res.render('video_record');
 })
@@ -23,10 +23,12 @@ var mongoose = require('mongoose');
 
 // 시간 누적 기능
 router.post('/add_weekly', (req, res)=>{
+  /* 포스트맨때문에 주석처리!! 지우면 절대 안됨  */
   // 로그인 안 되어있을 경우, 다시 메인 화면으로 돌아간다
-  if(req.cookies.user==null){
-    res.redirect('../../')
-  }
+  // if(req.cookies.user==null){
+  //   console.log("0000000")
+  //   return res.redirect('../../')
+  // }
 
     if (req.body.my_email === "") {
         return res.status(400).json({
@@ -41,7 +43,7 @@ router.post('/add_weekly', (req, res)=>{
         code: 2
       });   
     }  
-
+    
     let given_time = req.body.current_time;
     WeekTime.findOne({"my_email": req.body.my_email}, function(err, weekTime){
       if(err)

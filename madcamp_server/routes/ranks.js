@@ -19,6 +19,7 @@ router.get('/', function(req, res, next){
 })
 
 /* DB에 접근해야 하는 호출들 */
+var UserInfo = require('../models/users');
 var FriendInfo = require('../models/friend');
 var WeekTime = require('../models/week_time');
 var mongoose = require('mongoose');
@@ -78,6 +79,15 @@ router.get('/fetch_friends', (req, res)=>{
     res.redirect('../../')
   }
 
+  var myInfo;
+  WeekTime.findOne({"my_email":req.cookies.user}, function(err, userTime){
+    if(err){
+      return res.json({"failure" : "failure"})
+    }else{
+      myTime = userTime;
+    }
+  })
+
   // 순서대로 진행되어야 - async & await 기법 사용
   var tmpFriendArray =[]
   var tmpTimeArray =[]
@@ -86,6 +96,8 @@ router.get('/fetch_friends', (req, res)=>{
     await get_friend_time();    
     await give_friend();
   } 
+
+
 
   // await 함수 - 1
   function get_friend_phone(){
@@ -154,7 +166,8 @@ router.get('/fetch_friends', (req, res)=>{
           }else{
             return res.render('rank_user_friend', {
               all_rank : weekTime,
-              friend_rank : tmpTimeArray
+              friend_rank : tmpTimeArray,
+              my_Time : myTime
             })
           }
         }).sort({"my_week_time":-1})
