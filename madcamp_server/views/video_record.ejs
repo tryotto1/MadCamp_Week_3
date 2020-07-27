@@ -47,15 +47,15 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" href="../">메인<span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="../">main<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="./ranks/fetch_friends">랭킹</a>
+                  <a class="nav-link" href="./ranks/fetch_friends">rank</a>
                 </li>                
               </ul>
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">공부 시작하기</a>
+                    <a class="nav-link" href="#">let's Study!&nbsp;&nbsp;</a>
                   </li>                
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -84,7 +84,8 @@
                 // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
             
                 // the link to your model provided by Teachable Machine export panel
-                const URL = "./my_model/";
+                const URL = "../my_model/";
+                //const URL = "../my_model/";
             
                 let model, webcam, labelContainer, maxPredictions;
                 let total_studied = 0, prev_time, offset_time = 0;
