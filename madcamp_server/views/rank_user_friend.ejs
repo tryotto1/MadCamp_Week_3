@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- local에서 로딩한 bootstrap -->
+        <!-- <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <script src="js/bootstrap.bundle.min.js"></script> -->
+
+        <!-- 온라인에서 로딩한 bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <!-- 온라인에서 로딩한 bootstrap. jquery 내용이 담김 -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+        <!-- 내가 추가적으로 설정한 css 파일 -->
+        <link rel="stylesheet" href="css/index.css" />
+
+        <!-- 로그인/회원가입을 위해 온라인에서 가져온 소스-->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">     
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>   
+
+        <!-- 개별 스타일 지정해주기 -->
+        <style>
+            .footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background-color:black;
+                color: white;
+                text-align: center;
+            }
+            .table{
+                text-align: center;
+            }
+            .card{
+                text-align: center;
+            }
+            .card-header{
+                background-color: black;
+                color: white;
+            }
+            .media-body{
+                padding-top: 10;   
+            }
+            </style>
+        <title> 랭킹 </title>
+    </head>
+    <body>
+        <!-- 상단 네비게이션 바 부분-->        
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#"><h4>코윗미</h4></a>
+                      
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">메인<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./">랭킹</a>
+                </li>                
+              </ul>
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../videos">공부 시작하기</a>
+                  </li>                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    접속하기
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="../login_signin/page_login">로그인</a>
+                    <a class="dropdown-item" href="../login_signin/page_signin">회원가입</a>
+                    </div>
+                </li>
+              </ul>
+            </div>
+        </nav>
+
+        <br><br><br><br><br>
+        <!-- 랭킹 적용해보기 -->
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="card card-primary"> 
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="glyphicon glyphicon-tags">
+                                </span>
+                                친구 주간 순위
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="media">                                
+                                <a href="#">
+                                    <img class="media-object" src="https://media.vlpt.us/images/ellyyyy/post/64ee1fd5-510b-45b7-a504-18bdac128936/%EB%AD%94%EA%B0%80%20%EC%95%88%20%ED%92%80%EB%A6%AC%EB%8A%94%20%EC%A7%A4.jpg" alt="" width="150" height="150">
+                                </a>                                
+                                <div class="media-body">
+                                    <h4 class="media-heading">
+                                        <br>김상윤                                        
+                                    </h4>
+                                    <br>
+                                    삽질 그만좀 하고싶다
+                                </div>
+                            </div>
+
+                        </div>
+                        <table class="table" id="rank_friend">
+                            <thead>
+                                <tr>
+                                    <td>순위</td>
+                                    <td>친구 이메일</td>
+                                    <td>친구 주간 누적시간</td>
+                                    <td>친구 오늘 누적시간</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for(var i=0;i<5;i++){ %>
+                                    <% if(friend_rank.length>i){%>
+                                        <tr>
+                                            <td><%= i+1 %></td>
+                                            <td><%= friend_rank[i].my_email %></td> 
+                                            <td><%= friend_rank[i].my_today_time %> 분</td> 
+                                            <td><%= friend_rank[i].my_week_time %> 분</td> 
+                                        </tr>                       
+                                    <% } else { %>
+                                        <tr>
+                                            <td><%= i+1 %></td>
+                                            <td>x</td>
+                                            <td>x</td>
+                                            <td>x</td>
+                                        </tr>                       
+                                    <% }%>
+                                <% } %>
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#newFriend">
+                            친구 추가하기
+                        </button>
+                        <div class="modal" id="newFriend">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        친구 추가하기
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container" >
+                                            <form action="/api/ranks/add_friend" method="POST">
+                                                <br>
+                                                내 이메일 :
+                                                <input type="text" class="form-control" placeholder="내 이메일" name="my_email">
+                                                <br>
+                                                친구 이메일 :
+                                                <input type="text" class="form-control" placeholder="친구 이메일" name="friend_email">                                                
+                                                <br>
+                                                <button type="submit" class="btn btn-secondary">추가하기</button>      
+                                                <br>
+                                                <br>                                          
+                                            </form>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <div class="col-xs-6">
+                    <div class="card card-primary"> 
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="glyphicon glyphicon-tags">
+                                </span>
+                                전체 주간 순위
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="media">                                
+                                <a href="#">
+                                    <img class="media-object" src="https://media.vlpt.us/images/ellyyyy/post/64ee1fd5-510b-45b7-a504-18bdac128936/%EB%AD%94%EA%B0%80%20%EC%95%88%20%ED%92%80%EB%A6%AC%EB%8A%94%20%EC%A7%A4.jpg" alt="" width="150" height="150">
+                                </a>                                
+                                <div class="media-body">
+                                    <h4 class="media-heading">
+                                        <br>김상윤                                        
+                                    </h4>
+                                    <br>
+                                    삽질 그만좀 하고싶다
+                                </div>
+                            </div>
+
+                        </div>
+                        <table class="table" id="rank_friend">
+                            <thead>
+                                <tr>
+                                    <td>순위</td>
+                                    <td>user 이메일</td>
+                                    <td>user 주간 누적시간</td>
+                                    <td>user 오늘 누적시간</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for(var i=0;i<5;i++){ %>
+                                    <% if(all_rank.length>i){%>
+                                        <tr>
+                                            <td><%= i+1 %></td>
+                                            <td><%= all_rank[i].my_email %></td> 
+                                            <td><%= all_rank[i].my_today_time %> 분</td> 
+                                            <td><%= all_rank[i].my_week_time %> 분</td> 
+                                        </tr>   
+                                    <% } else { %>      
+                                        <tr>
+                                            <td><%= i+1 %></td>
+                                            <td>x</td>
+                                            <td>x</td>
+                                            <td>x</td>
+                                        </tr>  
+                                    <% }%>                     
+                                <% } %>
+                            </tbody>
+                        </table>
+                        <form action="../videos" method="GET">                            
+                            <button type="submit" class="btn btn-outline-dark btn-block" data-toggle="modal" data-target="#newFriend">
+                                공부하러 가기
+                            </button>                                                    
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 하단 footer 부분 -->
+        <div class = "footer">
+            <div class="container">
+                <br>
+                <div class="row">
+                    <div class="col-sm-4" style="text-align: center;">                        
+                    </div>
+                    <div class="col-sm-4" style="text-align: center;">
+                        <h5>코윗미</h5>
+                    </div>
+                    <div class="col-sm-4" style="text-align: right;">
+                        Copyright 이현호, 김상윤
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
