@@ -47,7 +47,7 @@
     <body>
         <!-- 상단 네비게이션 바 부분-->        
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#"><h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code With Me&nbsp;&nbsp;&nbsp;&nbsp;</h4></a>
+            <a class="navbar-brand" href="../"><h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code With Me&nbsp;&nbsp;&nbsp;&nbsp;</h4></a>
                       
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
@@ -113,7 +113,7 @@
             
                     // Convenience function to setup a webcam
                     const flip = true; // whether to flip the webcam
-                    webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+                    webcam = new tmImage.Webcam(500, 500, flip); // width, height, flip
                     await webcam.setup(); // request access to the webcam
                     await webcam.play();
                     window.requestAnimationFrame(loop);
@@ -143,7 +143,7 @@
                     
                     if(prediction[0].className == "studying" && 0.9 < prediction[0].probability.toFixed(2)){                
                         total_studied = total_studied + diff_t;
-                        console.log(total_studied);
+                        //console.log(total_studied);
 
                         var format_t = new Date(total_studied - 32400000);
 
@@ -158,19 +158,44 @@
                 }
                 
                 async function submit_time(){
+                    var rawuserEmail = document.cookie.split("=")[1]
+                    var userEmail = rawuserEmail.split("%40")[0] + "@" + rawuserEmail.split("%40")[1]
+                    const url = "/api/videos/add_weekly"
+                    const data= {"my_email":userEmail, "current_time":(total_studied-32400000)};
+
                     console.log("되냐?????? Tlqkf")
-                    const url = "http://127.0.0.1:80/api/videos/add_weekly"
-                    const data= {my_email:req.cookies.user, current_time:(total_studied-32400000)};
-                    const response = await fetch(url, {
-                        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                        headers: {
-                        'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(data) // body data type must match "Content-Type" header
-                    });
+                    console.log(total_studied)
+                    console.log(userEmail)
+                    console.log(data)
+
+                    sendPost(url, data);
+                    // const response = await fetch(url, {
+                    //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    //     headers: {
+                    //     'Content-Type': 'application/json'
+                    //     },
+                    //     body: JSON.stringify(data) // body data type must match "Content-Type" header
+                    // });
                     console.log("되냐?????? 자고싶다")
-                    return response.json();
+                    //return response.json();
                 }
+
+                async function sendPost(action, params) {
+                    var form = document.createElement("form");
+                    form.setAttribute("method", "post")
+                    form.setAttribute("action", action)
+                    
+                    for ( var key in params) {
+                        var hiddenField = document.createElement('input');
+                        hiddenField.setAttribute('type', 'hidden');
+                        hiddenField.setAttribute('name', key);
+                        hiddenField.setAttribute('value', params[key]);
+                        form.appendChild(hiddenField);
+                    }
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+
             </script>            
             <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         </div>

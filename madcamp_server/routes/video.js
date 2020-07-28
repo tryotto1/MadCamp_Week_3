@@ -1,9 +1,11 @@
 // index.html을 가져오기 위함
+var http = require('http');
 var fs = require('fs');
 var path = require('path');
 
 // 라우터를 연결해주기 위함
 var express = require('express');
+var cookie = require('cookie');
 const router = express.Router();
 
 // 홈페이지를 열어준다 - ejs 버전
@@ -43,7 +45,7 @@ router.post('/add_weekly', (req, res)=>{
         code: 2
       });   
     }  
-    
+    console.log("email: " + req.body.my_email + " time : " + req.body.current_time);
     let given_time = req.body.current_time;
     WeekTime.findOne({"my_email": req.body.my_email}, function(err, weekTime){
       if(err)
