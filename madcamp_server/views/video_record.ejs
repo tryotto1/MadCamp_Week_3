@@ -161,7 +161,8 @@
                     var rawuserEmail = document.cookie.split("=")[1]
                     var userEmail = rawuserEmail.split("%40")[0] + "@" + rawuserEmail.split("%40")[1]
                     const url = "/api/videos/add_weekly"
-                    const data= {"my_email":userEmail, "current_time":(total_studied-32400000)};
+                    const data= {"my_email":userEmail, "current_time":(total_studied)};
+                    //const data= {"my_email":userEmail, "current_time":(total_studied-32400000)};
 
                     console.log("되냐?????? Tlqkf")
                     console.log(total_studied)
@@ -176,7 +177,7 @@
                     //     },
                     //     body: JSON.stringify(data) // body data type must match "Content-Type" header
                     // });
-                    console.log("되냐?????? 자고싶다")
+                    console.log("내가 되게 했어 미안 ㅎㅎ... 푹자")
                     //return response.json();
                 }
 
