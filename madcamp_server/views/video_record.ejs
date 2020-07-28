@@ -121,7 +121,6 @@
             
                 let model, webcam, labelContainer, maxPredictions;
                 let total_studied = 0, prev_time, offset_time = 0;
-
                 // Load the image model and setup the webcam
                 async function init() {
                     const modelURL = URL + "model.json";
@@ -167,7 +166,11 @@
                     var diff_t = cur_t.getTime() - prev_time.getTime();
                     prev_time = cur_t;
                     
-                    if(prediction[0].className == "studying" && 0.9 < prediction[0].probability.toFixed(2)){                
+                    if(0.9 < prediction[0].probability.toFixed(2)){     
+                        if(study_flag == 0){
+                            labelContainer.childNodes[3].innerHTML = "잘 되고 있음";                            
+                            study_flag = 1;
+                        }           
                         total_studied = total_studied + diff_t;
                         //console.log(total_studied);
 
@@ -176,9 +179,9 @@
                         labelContainer.childNodes[0].innerHTML = "공부 잘 하고 있네  H:" + cur_t.getHours() + "  M: "+cur_t.getMinutes() + "  S:" + cur_t.getSeconds();
                         // labelContainer.childNodes[1].innerHTML = "누적 공부시간 : " + total_studied.toString();
                         labelContainer.childNodes[1].innerHTML = "누적 공부시간 : " + format_t.getHours() + "시간  " + format_t.getMinutes() + "분  " + format_t.getSeconds() + "초";
-                    }else if(prediction[1].className == "playing" && 0.9 < prediction[0].probability.toFixed(2)){
+                    }else if(0.9 < prediction[0].probability.toFixed(2)){
                         labelContainer.childNodes[0].innerHTML = "공부 안하네? 용돈 깎는다 ^^ H: "  + cur_t.getHours() + "시간  "+cur_t.getMinutes() + "분 " + cur_t.getSeconds() + "초  ";
-                    }else{
+                    }else{  
                         labelContainer.childNodes[0].innerHTML = "뭐하는지 모르겠네 우리 아들? ^^ CCTV 돌려본다?? ㅎㅎ H: "  + cur_t.getHours() + "시간  "+cur_t.getMinutes() + "분  " + cur_t.getSeconds() + "초";
                     }
                 }
