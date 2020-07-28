@@ -169,12 +169,6 @@
                                 var diff_t = cur_t.getTime() - prev_time.getTime();
                                 prev_time = cur_t;
                                 
-                                
-                                // for (let i = 0; i < maxPredictions; i++) {
-                                //     const classPrediction =
-                                //         prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-                                //     labelContainer.childNodes[i].innerHTML = classPrediction;
-                                // }
                                 if(0.9 < prediction[0].probability.toFixed(2)){     
                                              
                                     total_studied = total_studied + diff_t;
@@ -185,19 +179,10 @@
                                     labelContainer.childNodes[0].innerHTML = "공부 중";
                                     // labelContainer.childNodes[1].innerHTML = " ";
                                     labelContainer.childNodes[1].innerHTML = "누적 공부시간 : " + format_t.getHours() + "시간  " + format_t.getMinutes() + "분  " + format_t.getSeconds() + "초";
-
-                                }else if(0.9 < prediction[1].probability.toFixed(2)){
-
-                                    labelContainer.childNodes[0].innerHTML = "스마트폰 하는 중";
-
-                                }else if(0.9 < prediction[2].probability.toFixed(2)){
-
-                                    labelContainer.childNodes[0].innerHTML = "자는 중";
-
-                                }else {
-
-                                    labelContainer.childNodes[0].innerHTML = "자리에 없음";
-
+                                }else if(0.9 < prediction[0].probability.toFixed(2)){
+                                    labelContainer.childNodes[0].innerHTML = "노닥거리는 중";
+                                }else{  
+                                    labelContainer.childNodes[0].innerHTML = "딴 짓 하는 중";
                                 }
                             }
                             
@@ -214,7 +199,7 @@
                                 console.log(data)
             
                                 sendPost(url, data);
-
+                                
                                 console.log("내가 되게 했어 미안 ㅎㅎ... 푹자")                    
                             }
             

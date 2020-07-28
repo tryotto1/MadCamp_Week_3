@@ -81,7 +81,7 @@ router.post('/add_weekly', (req, res)=>{
             return res.json("can't update time");
           }
           else{      
-            return res.json("time updated");
+            return res.redirect("/");// json("time updated");
           }
         });
       }
