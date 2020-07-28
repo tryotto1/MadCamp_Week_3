@@ -14,28 +14,25 @@ var WeekTime = require('../models/week_time');
 var mongoose = require('mongoose');
 
 // 홈페이지를 열어준다 - ejs 버전
-router.get('/', function(req, res, next){
-  // 로그인 안 되어있을 경우, 다시 메인 화면으로 돌아간다
-  if(req.cookies.user==null){
-    res.redirect('../../')
-  }
-  
-  WeekTime.findOne({"my_email":req.cookies.user}, function(err, weekTime){
-    if(err)
-      return res.status(500).json({error:"Internal Error"});
-    if(weekTime!=null){      
-      console.log("되나? : " + req.cookies.user)
+router.get('/', async function(req, res, next){
+  try {
+    if(req.cookies.user==null){
+      res.redirect('../../')
+    }
+    const weekTime = await WeekTime.findOne({"my_email":req.cookies.user});
+    if(weekTime != null){
       return res.render('video_record',{
         login_flag : "yes",
         my_weekTime : weekTime
-      });      
+      });
     }else{
       return res.redirect('../../')
     }
-  })
+  } catch (error) {
+    return res.status(500).json({error:"Internal Error"});
+  }
+});
 
-  
-})
 
 // 시간 누적 기능
 router.post('/add_weekly', (req, res)=>{
