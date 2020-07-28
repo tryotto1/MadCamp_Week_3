@@ -73,13 +73,43 @@ router.post('/add_friend', (req, res)=>{
 });
 
 // 모든 친구들 기록 가져오기 기능 + 모든 사용자 가져오기 기능
-router.get('/fetch_friends', (req, res)=>{  
+router.get('/fetch_friends', async (req, res)=>{  
   // 로그인 안 되어있을 경우, 다시 메인 화면으로 돌아간다
   if(req.cookies.user==null){
     res.redirect('../../')
   }
+  try {
+    // 1. 내가 존재 하지않을 경우
+    const myInfo = await WeekTime.findOne({"my_email":req.cookies.user});
+    const friends = await FriendInfo.find({"my_email":req.cookies.user});
+    const friendTimes = []
+    for (let friend of friends){
+      const friendTime = await WeekTime.findOne({"my_email":friend.friend_email});
+      // console.log(`friendTime: ${friendTime}`)
+      if (friendTime != null)
+        friendTimes.push(friendTime);
+    }
+    friendTimes.sort((a,b) => a.my_week_time - b.my_week_time);
+    friendTimes.reverse();
 
-  var myInfo;
+    const allWeekTime = await WeekTime.find({}).sort({"my_week_time":-1});
+
+    console.log(friendTimes);
+    return res.render('rank_user_friend', {
+      all_rank : allWeekTime,
+      friend_rank : friendTimes,
+      my_Time : myInfo,
+      login_flag : "yes"
+    })
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({error:"Internal Error"});
+  }
+
+
+  // =======================================================================
+  /*
+  var myTime;
   WeekTime.findOne({"my_email":req.cookies.user}, function(err, userTime){
     if(err){
       return res.json({"failure" : "failure"})
@@ -177,6 +207,7 @@ router.get('/fetch_friends', (req, res)=>{
   }
 
   final_rank();
+   */
 });
 
 module.exports = router;
