@@ -40,6 +40,9 @@
                 background-color: transparent;
                 text-decoration: none;
             }
+            #accum_time {
+                text-align: center;
+            }
             </style>
 
         <title>웹 캠 시작</title>
@@ -173,13 +176,13 @@
             
                                     var format_t = new Date(total_studied - 32400000);
             
-                                    labelContainer.childNodes[0].innerHTML = "공부 잘 하고 있네  H:" + cur_t.getHours() + "  M: "+cur_t.getMinutes() + "  S:" + cur_t.getSeconds();
-                                    // labelContainer.childNodes[1].innerHTML = "누적 공부시간 : " + total_studied.toString();
+                                    labelContainer.childNodes[0].innerHTML = "공부 중";
+                                    // labelContainer.childNodes[1].innerHTML = " ";
                                     labelContainer.childNodes[1].innerHTML = "누적 공부시간 : " + format_t.getHours() + "시간  " + format_t.getMinutes() + "분  " + format_t.getSeconds() + "초";
                                 }else if(0.9 < prediction[0].probability.toFixed(2)){
-                                    labelContainer.childNodes[0].innerHTML = "공부 안하네? 용돈 깎는다 ^^ H: "  + cur_t.getHours() + "시간  "+cur_t.getMinutes() + "분 " + cur_t.getSeconds() + "초  ";
+                                    labelContainer.childNodes[0].innerHTML = "노닥거리는 중";
                                 }else{  
-                                    labelContainer.childNodes[0].innerHTML = "뭐하는지 모르겠네 우리 아들? ^^ CCTV 돌려본다?? ㅎㅎ H: "  + cur_t.getHours() + "시간  "+cur_t.getMinutes() + "분  " + cur_t.getSeconds() + "초";
+                                    labelContainer.childNodes[0].innerHTML = "딴 짓 하는 중";
                                 }
                             }
                             
@@ -233,15 +236,16 @@
                         </div>
                         <div class="card-body">
                             <div class="media">                                                   
-                                <div class="media-body">
+                                <div class="media-body" id="accum_time">
                                     <br><br>내 이메일
                                     <h2 class="media-heading">
                                         <%= my_weekTime.my_email %>
                                     </h2>
                                     <br>
-                                    <%= my_weekTime.my_today_time %>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp; 분                                            
+                                    오늘 몰입 시간&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<%= my_weekTime.my_today_time %> 분                                            
                                     <br>
-                                    <%= my_weekTime.my_week_time %>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp; 분                                            
+                                    이번 주 몰입 시간&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<%= my_weekTime.my_week_time %> 분           
+                                    <br><br><br>                                 
                                 </div>
                             </div>
                         </div>
@@ -258,9 +262,8 @@
                         <div class="card-body">
                             <div class="media">                                                   
                                 <div class="media-body">                                    
-                                    <p class="text-center">지금 상태</p>
-                                    <br>
-                                    <div id="label-container"></div>                                    
+                                    <p class="text-center">지금 상태</p>                                    
+                                    <div id="label-container" class="text-center"></div>                                    
                                     <br>                                                                          
                                 </div>
                             </div>
