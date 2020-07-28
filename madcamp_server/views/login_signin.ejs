@@ -144,8 +144,12 @@
                     접속하기
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">로그인</a>
-                    <a class="dropdown-item" href="#">회원가입</a>
+                        <% if(login_flag == "no"){ %>
+                            <a class="dropdown-item" href="/page_login">로그인</a>
+                            <a class="dropdown-item" href="/page_signin">회원가입</a>
+                        <% }else{ %>
+                            <a class="dropdown-item" href="api/login_signin/logout">로그아웃</a>
+                        <% } %>   
                     </div>
                 </li>
               </ul>

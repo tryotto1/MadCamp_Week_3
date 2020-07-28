@@ -1,6 +1,7 @@
 // index.html을 가져오기 위함
 var fs = require('fs');
 var path = require('path');
+var crypto = require('crypto')
 
 // 라우터를 연결해주기 위함
 var express = require('express');
@@ -18,8 +19,8 @@ router.get('/page_login', function(req, res, next){
   }  
 
   res.render('page_login', { 
-		title: 'Express',
-		length : 5});
+    login_flag : "no"
+  });
 })
 
 // 회원가입 홈페이지를 열어준다 - ejs 버전
@@ -30,8 +31,8 @@ router.get('/page_signin', function(req, res, next){
   }
     
   res.render('page_signin', { 
-		title: 'Express',
-		length : 5});
+    login_flag : "no"
+  });
 })
 
 // 로그 아웃 기능
@@ -60,8 +61,15 @@ router.post('/login', (req, res)=>{
         code: 2
       });   
     }
-    console.log("email: " + req.body.my_email + " pwd : " + req.body.my_pwd + "  total : " + req.body);
-    UserInfo.findOne({"my_email": req.body.my_email, "my_pwd": req.body.my_pwd}, function(err, userInfo){
+
+    // 로그인 될때 들어온 비밀번호를 해싱해준다
+    let hash_pwd = crypto.createHash("sha512").update(req.body.my_pwd).digest('base64')
+    hash_pwd = crypto.createHash("sha512").update(hash_pwd).digest('hex')
+    console.log("해싱된 비밀번호 (로그인) :" + hash_pwd)
+
+    // DB 에서 해당 회원 정보를 찾아본다
+    console.log("email: " + req.body.my_email + " pwd : " + hash_pwd + "  total : " + req.body);
+    UserInfo.findOne({"my_email": req.body.my_email, "my_pwd": hash_pwd}, function(err, userInfo){
         if(err){
           return res.status(500).json({error: 'Internal Error'});
         }
@@ -102,7 +110,7 @@ router.post('/signin', (req, res)=>{
     });
   }
 
-  console.log(req.body);
+  // console.log(req.body);
  
   // 중복 가입을 막아줘야 한다
   UserInfo.findOne({"my_email": req.body.my_email}, function(err, userInfo){
@@ -111,10 +119,16 @@ router.post('/signin', (req, res)=>{
       }
       // 겹치는 이메일이 없다
       if(userInfo==null){ 
+
+        // 비밀번호를 해싱 해준다
+        let hash_pwd = crypto.createHash("sha512").update(req.body.my_pwd).digest('base64')
+        hash_pwd = crypto.createHash("sha512").update(hash_pwd).digest('hex')
+        console.log("비밀번호 해싱됨 (회원가입) : " + hash_pwd);
+
         // 저장해준다
         let tmp_userInfo = new UserInfo({
           my_email: req.body.my_email,
-          my_pwd: req.body.my_pwd,
+          my_pwd: hash_pwd,
           my_goal: req.body.my_goal    
         });
         
@@ -126,14 +140,13 @@ router.post('/signin', (req, res)=>{
         // 저장해준다
         tmp_userInfo.save(err => {
           if (err) throw err;
-          
-          return res.json(req.body.my_email);
+          return res.redirect('../../');
         });
       }
       // 겹치는 이메일이 있다.
       else{
         console.log("현재 이메일을 저장하지 않는다");
-        return res.json({success : "Successfull"});
+        return res.redirect('../../');
       }
    });
 });

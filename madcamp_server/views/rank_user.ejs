@@ -64,9 +64,12 @@
                     접속하기
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="./login_signin/page_login">로그인</a>
-                    <a class="dropdown-item" href="./login_signin/page_signin">회원가입</a>       
-                    <a class="dropdown-item" href="api/login_signin/logout">로그아웃</a>             
+                        <% if(login_flag == "no"){ %>
+                            <a class="dropdown-item" href="../login_signin/page_login">로그인</a>
+                            <a class="dropdown-item" href="../login_signin/page_signin">회원가입</a>
+                        <% }else{ %>
+                            <a class="dropdown-item" href="../login_signin/logout">로그아웃</a>
+                        <% } %>              
                     </div>
                 </li>
               </ul>

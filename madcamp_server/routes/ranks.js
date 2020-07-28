@@ -167,7 +167,8 @@ router.get('/fetch_friends', (req, res)=>{
             return res.render('rank_user_friend', {
               all_rank : weekTime,
               friend_rank : tmpTimeArray,
-              my_Time : myTime
+              my_Time : myTime,
+              login_flag : "yes"
             })
           }
         }).sort({"my_week_time":-1})

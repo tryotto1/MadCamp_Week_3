@@ -41,19 +41,15 @@ app.listen(port, function(){
     console.log("Server Listening on port number 80");
 })
 
-// 기본 화면 설정 (=index 화면, HTML)
-app.get('/defualt', function(request, response){
-    fs.readFile('index.html', function(error, data){
-        if(error){
-            console.log(error);
-        }else{
-            response.writeHead(200, {'Content-Type':'text/html'});
-            response.end(data);
-        }
-    })
-})
-
 // 기본 화면 설정 (=index 화면, ejs)
 app.get('/', function(request, response){
-    response.render('index');
+    if(request.cookies.user == null){   // 로그인이 안 되어 있는 경우
+        response.render('index', {
+            login_flag : "no"
+        });   
+    }else{
+        response.render('index', {
+            login_flag : "yes"
+        });   
+    }    
 })

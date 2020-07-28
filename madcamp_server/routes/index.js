@@ -14,7 +14,10 @@ router.use('/ranks', ranks);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {  
-  res.render('index', { title: 'Express' });
+  res.render('index', { 
+    title: 'Express',
+    login_flag : "yes"
+  });
 });
 
 module.exports = router;

@@ -137,16 +137,23 @@
               </ul>
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="./videos">let's Study!&nbsp;&nbsp;</a>
+                    <% if(login_flag == "no"){ %>
+                        <a class="nav-link" href="../../">let's Study!&nbsp;&nbsp;</a>
+                    <% }else{ %>
+                        <a class="nav-link" href="./videos">let's Study!&nbsp;&nbsp;</a>
+                    <% } %>                      
                   </li>                
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     접속하기
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="./page_login">로그인</a>
-                    <a class="dropdown-item" href="./page_signin">회원가입</a>
-                    <a class="dropdown-item" href="api/login_signin/logout">로그아웃</a>
+                        <% if(login_flag == "no"){ %>
+                            <a class="dropdown-item" href="../login_signin/page_login">로그인</a>
+                            <a class="dropdown-item" href="../login_signin/page_signin">회원가입</a>
+                        <% }else{ %>
+                            <a class="dropdown-item" href="../login_signin/logout">로그아웃</a>
+                        <% } %>   
                     </div>
                 </li>
               </ul>

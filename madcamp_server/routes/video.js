@@ -16,7 +16,9 @@ router.get('/', function(req, res, next){
   }
 
   console.log("되나? : " + req.cookies.user)
-  res.render('video_record');
+  res.render('video_record',{
+    login_flag : "yes"
+  });
 })
 
 /* DB에 접근해야 하는 호출들 */
