@@ -82,7 +82,33 @@
             <button type="button" onclick="init()">시작</button>
             <div id="webcam-container"></div>
             <div id="label-container"></div>
-            <button type="button" onclick="submit_time()">제출</button>            
+            <button type="button" onclick="submit_time()">제출</button> 
+            
+            <div class="col-xs-6">
+                <div class="card card-primary"> 
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <span class="glyphicon glyphicon-tags">
+                            </span>
+                            친구 주간 순위
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="media">                                                   
+                            <div class="media-body">
+                                <br><br>내 이메일
+                                <h2 class="media-heading">
+                                    a@email.com                                                                          
+                                </h2>
+                                <br>
+                                주간 몰입 시간&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;11 분                                            
+                                <br>
+                                오늘 몰입 시간&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;22 분                                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>           
             <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
             <script type="text/javascript">
@@ -161,7 +187,7 @@
                     var rawuserEmail = document.cookie.split("=")[1]
                     var userEmail = rawuserEmail.split("%40")[0] + "@" + rawuserEmail.split("%40")[1]
                     const url = "/api/videos/add_weekly"
-                    const data= {"my_email":userEmail, "current_time":(total_studied)};
+                    const data= {"my_email":userEmail, "current_time":parseInt(total_studied/60000)};
                     //const data= {"my_email":userEmail, "current_time":(total_studied-32400000)};
 
                     console.log("되냐?????? Tlqkf")
@@ -170,15 +196,8 @@
                     console.log(data)
 
                     sendPost(url, data);
-                    // const response = await fetch(url, {
-                    //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                    //     headers: {
-                    //     'Content-Type': 'application/json'
-                    //     },
-                    //     body: JSON.stringify(data) // body data type must match "Content-Type" header
-                    // });
-                    console.log("내가 되게 했어 미안 ㅎㅎ... 푹자")
-                    //return response.json();
+                    
+                    console.log("내가 되게 했어 미안 ㅎㅎ... 푹자")                    
                 }
 
                 async function sendPost(action, params) {
