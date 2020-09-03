@@ -1,5 +1,13 @@
 Code with Me
 ==============
+# 원본 주소
+
+카이스트 몰입캠프 당시에 했던 프로젝트를 제 repository에 가져온 것입니다
+
+개발 당시에 사용했던 repository 주소는 아래와 같습니다
+
+https://github.com/dot0ris/madcamp_week3
+
 # 개요
 
 몰입캠프 3주차 과제 - Teachable machine을 이용한 집중도 측정 및 순위 비교 웹 제작
